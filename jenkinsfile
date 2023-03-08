@@ -5,12 +5,21 @@ pipeline {
             steps {
                 git url: 'https://github.com/ajayreddy123456/spring-petclinic.git',
                 branch: 'spring',
-                poll: 'true'
+                poll: true
             }
         }
         stage ('package') {
             steps {
                 sh 'mvn package'
+            }
+        }
+        stage ('post-build') {
+            steps {
+                archiveArtifacts artifacts: '**/Target/springpetclinic.jar || **/Target/springpetclinic.war',
+                onlyIfSuccessful: true
+                junit testResults: '**/surefire-reports/TEST-*.xml',
+                onliIfSuccessful: true 
+
             }
         }
      }
