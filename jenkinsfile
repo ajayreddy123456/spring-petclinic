@@ -13,14 +13,5 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        stage ('post-build') {
-            steps {
-                archiveArtifacts artifacts: '**/Target/springpetclinic.jar'
-                 onlyIfSuccessful: true
-                junit testResults: '**/surefire-reports/TEST-*.xml',
-                onliIfSuccessful: true 
-
-            }
-        }
      }
 }
